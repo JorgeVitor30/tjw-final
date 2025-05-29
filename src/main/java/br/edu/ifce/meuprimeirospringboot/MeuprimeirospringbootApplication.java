@@ -59,14 +59,9 @@ public class MeuprimeirospringbootApplication implements CommandLineRunner  {
 		Long n =  usuarioRepository.count();
 		System.out.println(n);
 		
-		List<Usuario> x = usuarioRepository.findAllUsuario();
-		for (Iterator iterator = x.iterator(); iterator.hasNext();) {
-			Usuario usuario = (Usuario) iterator.next();
-			System.out.println(usuario.getNome());
-		}
 		
-		Usuario uu = usuarioRepository.findByCpf("00000000001");
-		System.out.println(uu.getCpf());
+		
+		
 	}
 
 }

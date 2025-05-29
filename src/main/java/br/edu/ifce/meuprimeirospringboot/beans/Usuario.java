@@ -3,7 +3,6 @@ package br.edu.ifce.meuprimeirospringboot.beans;
 import java.util.Date;
 import java.util.List;
 
-
 import br.edu.ifce.meuprimeirospringboot.enums.Raca;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -17,7 +16,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;

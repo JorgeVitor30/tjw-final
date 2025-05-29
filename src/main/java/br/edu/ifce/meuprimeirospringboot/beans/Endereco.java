@@ -1,5 +1,7 @@
 package br.edu.ifce.meuprimeirospringboot.beans;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
@@ -18,6 +20,7 @@ public class Endereco {
 	private String bairro;
 	private String numero;
 	@OneToOne(mappedBy = "endereco",cascade = CascadeType.ALL)
+	@JsonBackReference
 	private Usuario usuario;
 	public Long getId() {
 		return id;
