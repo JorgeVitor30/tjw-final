@@ -2,7 +2,6 @@ package br.edu.ifce.meuprimeirospringboot;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import br.edu.ifce.meuprimeirospringboot.beans.Endereco;
 import br.edu.ifce.meuprimeirospringboot.beans.Telefone;
 import br.edu.ifce.meuprimeirospringboot.beans.Usuario;
 import br.edu.ifce.meuprimeirospringboot.enums.Raca;
-import br.edu.ifce.meuprimeirospringboot.repository.EnderecoRepository;
 import br.edu.ifce.meuprimeirospringboot.repository.UsuarioRepository;
 
 @SpringBootApplication

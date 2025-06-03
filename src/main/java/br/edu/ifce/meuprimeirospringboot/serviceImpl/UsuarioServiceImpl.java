@@ -18,6 +18,29 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .orElseThrow(() -> new UsuarioNaoEncontradoException(cpf));
     }
 
+	@Override
+	public Usuario salvar(Usuario usuario) {
+		return usuarioRepository.save(usuario);
+	}
+
+	@Override
+	public Usuario editar(Long id, Usuario usuarioAtualizado) {
+		Usuario existente = usuarioRepository.findById(id)
+	            .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + id));
+
+	        existente.setNome(usuarioAtualizado.getNome());
+	        existente.setEmail(usuarioAtualizado.getEmail());
+	        existente.setCpf(usuarioAtualizado.getCpf());
+	        existente.setDtNascimento(usuarioAtualizado.getDtNascimento());
+	        existente.setRaca(usuarioAtualizado.getRaca());
+	        existente.setEndereco(usuarioAtualizado.getEndereco());
+	        existente.setTelefones(usuarioAtualizado.getTelefones());
+	        existente.setDisciplinas(usuarioAtualizado.getDisciplinas());
+
+	        return usuarioRepository.save(existente);
+	}
+
+	
 	
 	
 	
