@@ -46,7 +46,7 @@ public class Usuario {
 	@Transient
 	private int idade;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Disciplina> disciplinas;
 	
 	public Long getId() {

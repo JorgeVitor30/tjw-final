@@ -40,8 +40,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 	        return usuarioRepository.save(existente);
 	}
 
-	
-	
-	
-	
+	@Override
+	public void deletar(Long id) {
+		Usuario usuario = usuarioRepository.findById(id)
+			.orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + id));
+		usuarioRepository.delete(usuario);
+	}
 }

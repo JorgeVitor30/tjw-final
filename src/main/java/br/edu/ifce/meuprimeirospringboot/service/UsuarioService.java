@@ -6,4 +6,5 @@ public interface UsuarioService {
 	Usuario buscarPorCPF(String cpf);
 	Usuario salvar(Usuario usuario);
 	Usuario editar(Long id, Usuario usuarioAtualizado);
+	void deletar(Long id);
 }
