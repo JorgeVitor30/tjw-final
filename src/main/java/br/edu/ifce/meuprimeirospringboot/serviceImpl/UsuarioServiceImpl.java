@@ -1,5 +1,6 @@
 package br.edu.ifce.meuprimeirospringboot.serviceImpl;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +8,7 @@ import br.edu.ifce.meuprimeirospringboot.beans.Usuario;
 import br.edu.ifce.meuprimeirospringboot.exceptions.UsuarioNaoEncontradoException;
 import br.edu.ifce.meuprimeirospringboot.repository.UsuarioRepository;
 import br.edu.ifce.meuprimeirospringboot.service.UsuarioService;
+
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 	@Autowired
@@ -45,5 +47,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Usuario usuario = usuarioRepository.findById(id)
 			.orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + id));
 		usuarioRepository.delete(usuario);
+	}
+
+	@Override
+	public List<Usuario> listarTodos() {
+		return usuarioRepository.findAll();
+	}
+
+	@Override
+	public Usuario buscarPorId(Long id) {
+		return usuarioRepository.findById(id)
+			.orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + id));
 	}
 }

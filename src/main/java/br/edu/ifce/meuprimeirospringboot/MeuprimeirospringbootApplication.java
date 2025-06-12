@@ -1,7 +1,7 @@
 package br.edu.ifce.meuprimeirospringboot;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class MeuprimeirospringbootApplication implements CommandLineRunner  {
 		u.setNome("Fulano de Tal");
 		u.setEmail("fulano@gmail.com");
 		u.setRaca(Raca.Indígena);
-		u.setDtNascimento(new Date());
+		u.setDtNascimento(LocalDate.now());
 		
 		Endereco e = new Endereco();
 		e.setBairro("Jereissati");
@@ -53,13 +53,7 @@ public class MeuprimeirospringbootApplication implements CommandLineRunner  {
 	
 		usuarioRepository.save(u);
 
-		
 		Long n =  usuarioRepository.count();
 		System.out.println(n);
-		
-		
-		
-		
 	}
-
 }

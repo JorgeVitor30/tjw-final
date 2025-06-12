@@ -1,7 +1,9 @@
 package br.edu.ifce.meuprimeirospringboot.beans;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import br.edu.ifce.meuprimeirospringboot.enums.Raca;
 import jakarta.persistence.CascadeType;
@@ -16,8 +18,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
 
 @Entity
@@ -31,8 +31,9 @@ public class Usuario {
 	private String email;
 	@Column(length = 11 , unique = true , updatable = true)
 	private String cpf;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dtNascimento;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dtNascimento;
 	
 	@Enumerated(EnumType.STRING)
 	private Raca raca;
@@ -73,10 +74,10 @@ public class Usuario {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	public Date getDtNascimento() {
+	public LocalDate getDtNascimento() {
 		return dtNascimento;
 	}
-	public void setDtNascimento(Date dtNascimento) {
+	public void setDtNascimento(LocalDate dtNascimento) {
 		this.dtNascimento = dtNascimento;
 	}
 	public Raca getRaca() {
@@ -109,6 +110,4 @@ public class Usuario {
 	public void setDisciplinas(List<Disciplina> disciplinas) {
 		this.disciplinas = disciplinas;
 	}
-	
-	
 }
