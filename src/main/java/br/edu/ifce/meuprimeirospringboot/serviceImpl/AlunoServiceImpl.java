@@ -112,7 +112,16 @@ public class AlunoServiceImpl implements AlunoService {
 	
 	@Override
 	public void deletar(Long id) {
-		alunoRepository.deleteById(id);
+		Optional<Aluno> aluno = alunoRepository.findById(id);
+		if (!aluno.isPresent()) {
+			throw new RuntimeException("Aluno não encontrado com ID: " + id);
+		}
+		
+		try {
+			alunoRepository.delete(aluno.get());
+		} catch (Exception e) {
+			throw new RuntimeException("Erro ao deletar aluno. Verifique se o aluno ainda existe: " + id);
+		}
 	}
 	
 	@Override
