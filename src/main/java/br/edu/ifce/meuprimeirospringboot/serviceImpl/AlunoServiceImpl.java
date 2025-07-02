@@ -12,6 +12,7 @@ import br.edu.ifce.meuprimeirospringboot.dto.AlunoDTO;
 import br.edu.ifce.meuprimeirospringboot.enums.Genero;
 import br.edu.ifce.meuprimeirospringboot.repository.AlunoRepository;
 import br.edu.ifce.meuprimeirospringboot.service.AlunoService;
+import br.edu.ifce.meuprimeirospringboot.utils.CpfValidator;
 
 @Service
 public class AlunoServiceImpl implements AlunoService {
@@ -50,9 +51,19 @@ public class AlunoServiceImpl implements AlunoService {
 
 	@Override
 	public AlunoDTO salvar(AlunoDTO alunoDTO) {
-		// Validações antes de salvar
-		if (alunoDTO.getCpf() != null && existePorCpf(alunoDTO.getCpf())) {
-			throw new RuntimeException("CPF já cadastrado: " + alunoDTO.getCpf());
+		if (alunoDTO.getCpf() == null || alunoDTO.getCpf().trim().isEmpty()) {
+			throw new RuntimeException("CPF é obrigatório");
+		}
+		
+		if (!CpfValidator.isValid(alunoDTO.getCpf())) {
+			throw new RuntimeException("CPF inválido: " + alunoDTO.getCpf());
+		}
+		
+		String cpfLimpo = CpfValidator.limpar(alunoDTO.getCpf());
+		alunoDTO.setCpf(cpfLimpo);
+
+		if (existePorCpf(cpfLimpo)) {
+			throw new RuntimeException("CPF já cadastrado: " + cpfLimpo);
 		}
 		
 		if (alunoDTO.getEmail() != null && existePorEmail(alunoDTO.getEmail())) {
@@ -70,16 +81,25 @@ public class AlunoServiceImpl implements AlunoService {
 			throw new RuntimeException("Aluno não encontrado com ID: " + id);
 		}
 
-		if (alunoDTO.getCpf() != null) {
-			Optional<AlunoDTO> alunoExistente = buscarPorCpf(alunoDTO.getCpf());
-			if (alunoExistente.isPresent() && !alunoExistente.get().getId().equals(id)) {
-				throw new RuntimeException("CPF já cadastrado para outro aluno: " + alunoDTO.getCpf());
-			}
+		if (alunoDTO.getCpf() == null || alunoDTO.getCpf().trim().isEmpty()) {
+			throw new RuntimeException("CPF é obrigatório");
+		}
+		
+		if (!CpfValidator.isValid(alunoDTO.getCpf())) {
+			throw new RuntimeException("CPF inválido: " + alunoDTO.getCpf());
+		}
+
+		String cpfLimpo = CpfValidator.limpar(alunoDTO.getCpf());
+		alunoDTO.setCpf(cpfLimpo);
+
+		Optional<AlunoDTO> alunoExistente = buscarPorCpf(cpfLimpo);
+		if (alunoExistente.isPresent() && !alunoExistente.get().getId().equals(id)) {
+			throw new RuntimeException("CPF já cadastrado para outro aluno: " + cpfLimpo);
 		}
 
 		if (alunoDTO.getEmail() != null) {
-			Optional<AlunoDTO> alunoExistente = buscarPorEmail(alunoDTO.getEmail());
-			if (alunoExistente.isPresent() && !alunoExistente.get().getId().equals(id)) {
+			Optional<AlunoDTO> alunoExistenteEmail = buscarPorEmail(alunoDTO.getEmail());
+			if (alunoExistenteEmail.isPresent() && !alunoExistenteEmail.get().getId().equals(id)) {
 				throw new RuntimeException("Email já cadastrado para outro aluno: " + alunoDTO.getEmail());
 			}
 		}

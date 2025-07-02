@@ -1,6 +1,8 @@
 package br.edu.ifce.meuprimeirospringboot.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.edu.ifce.meuprimeirospringboot.dto.AlunoDTO;
 import br.edu.ifce.meuprimeirospringboot.enums.Genero;
 import br.edu.ifce.meuprimeirospringboot.service.AlunoService;
+import br.edu.ifce.meuprimeirospringboot.utils.CpfValidator;
 
 @RestController
 @RequestMapping("/api/alunos")
@@ -55,38 +58,6 @@ public class AlunoController {
 		return ResponseEntity.ok(alunos);
 	}
 	
-	@GetMapping("/cpf/{cpf}")
-	public ResponseEntity<?> buscarAlunoPorCpf(@PathVariable String cpf) {
-		Optional<AlunoDTO> aluno = alunoService.buscarPorCpf(cpf);
-		if (aluno.isPresent()) {
-			return ResponseEntity.ok(aluno.get());
-		} else {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
-	@GetMapping("/email/{email}")
-	public ResponseEntity<?> buscarAlunoPorEmail(@PathVariable String email) {
-		Optional<AlunoDTO> aluno = alunoService.buscarPorEmail(email);
-		if (aluno.isPresent()) {
-			return ResponseEntity.ok(aluno.get());
-		} else {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
-	@GetMapping("/genero/{genero}")
-	public ResponseEntity<List<AlunoDTO>> buscarAlunosPorGenero(@PathVariable Genero genero) {
-		List<AlunoDTO> alunos = alunoService.buscarPorGenero(genero);
-		return ResponseEntity.ok(alunos);
-	}
-	
-	@GetMapping("/ordenados")
-	public ResponseEntity<List<AlunoDTO>> buscarAlunosOrdenadosPorNome() {
-		List<AlunoDTO> alunos = alunoService.buscarTodosOrdenadosPorNome();
-		return ResponseEntity.ok(alunos);
-	}
-	
 	@PutMapping("/{id}")
 	public ResponseEntity<?> atualizarAluno(@PathVariable Long id, @RequestBody AlunoDTO alunoDTO) {
 		AlunoDTO alunoAtualizado = alunoService.atualizar(id, alunoDTO);
@@ -98,16 +69,5 @@ public class AlunoController {
 		alunoService.deletar(id);
 		return ResponseEntity.noContent().build();
 	}
-	
-	@GetMapping("/validar/cpf/{cpf}")
-	public ResponseEntity<Boolean> validarCpf(@PathVariable String cpf) {
-		boolean existe = alunoService.existePorCpf(cpf);
-		return ResponseEntity.ok(existe);
-	}
-	
-	@GetMapping("/validar/email/{email}")
-	public ResponseEntity<Boolean> validarEmail(@PathVariable String email) {
-		boolean existe = alunoService.existePorEmail(email);
-		return ResponseEntity.ok(existe);
-	}
+
 } 
