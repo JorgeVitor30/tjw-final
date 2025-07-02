@@ -18,9 +18,6 @@ public interface ProfessorService {
 	Optional<ProfessorDTO> buscarPorCpf(String cpf);
 	Optional<ProfessorDTO> buscarPorEmail(String email);
 	Optional<ProfessorDTO> buscarPorTelefone(String telefone);
-	List<ProfessorDTO> buscarPorGenero(Genero genero);
-	List<ProfessorDTO> buscarPorAreaAtuacao(String areaAtuacao);
-	List<ProfessorDTO> buscarTodosOrdenadosPorNome();
 	
 	boolean existePorCpf(String cpf);
 	boolean existePorEmail(String email);

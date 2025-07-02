@@ -178,30 +178,6 @@ public class ProfessorServiceImpl implements ProfessorService {
 		Optional<Professor> professor = professorRepository.findByTelefone(telefone);
 		return professor.map(this::converterParaDTO);
 	}
-	
-	@Override
-	public List<ProfessorDTO> buscarPorGenero(Genero genero) {
-		List<Professor> professores = professorRepository.findByGenero(genero);
-		return professores.stream()
-				.map(this::converterParaDTO)
-				.collect(Collectors.toList());
-	}
-	
-	@Override
-	public List<ProfessorDTO> buscarPorAreaAtuacao(String areaAtuacao) {
-		List<Professor> professores = professorRepository.findByAreaAtuacaoContainingIgnoreCase(areaAtuacao);
-		return professores.stream()
-				.map(this::converterParaDTO)
-				.collect(Collectors.toList());
-	}
-	
-	@Override
-	public List<ProfessorDTO> buscarTodosOrdenadosPorNome() {
-		List<Professor> professores = professorRepository.findAllByOrderByNomeAsc();
-		return professores.stream()
-				.map(this::converterParaDTO)
-				.collect(Collectors.toList());
-	}
 
 	@Override
 	public boolean existePorCpf(String cpf) {

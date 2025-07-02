@@ -17,8 +17,6 @@ public interface AlunoService {
 	List<AlunoDTO> buscarPorNome(String nome);
 	Optional<AlunoDTO> buscarPorCpf(String cpf);
 	Optional<AlunoDTO> buscarPorEmail(String email);
-	List<AlunoDTO> buscarPorGenero(Genero genero);
-	List<AlunoDTO> buscarTodosOrdenadosPorNome();
 
 	boolean existePorCpf(String cpf);
 	boolean existePorEmail(String email);

@@ -157,22 +157,6 @@ public class AlunoServiceImpl implements AlunoService {
 		Optional<Aluno> aluno = alunoRepository.findByEmail(email);
 		return aluno.map(this::converterParaDTO);
 	}
-	
-	@Override
-	public List<AlunoDTO> buscarPorGenero(Genero genero) {
-		List<Aluno> alunos = alunoRepository.findByGenero(genero);
-		return alunos.stream()
-				.map(this::converterParaDTO)
-				.collect(Collectors.toList());
-	}
-	
-	@Override
-	public List<AlunoDTO> buscarTodosOrdenadosPorNome() {
-		List<Aluno> alunos = alunoRepository.findAllByOrderByNomeAsc();
-		return alunos.stream()
-				.map(this::converterParaDTO)
-				.collect(Collectors.toList());
-	}
 
 	@Override
 	public boolean existePorCpf(String cpf) {
